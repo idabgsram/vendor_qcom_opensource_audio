@@ -231,9 +231,6 @@ status_t AudioPolicyManagerCustom::setDeviceConnectionStateInt(audio_devices_t d
             // Reset active device codec
             device->setEncodedFormat(AUDIO_FORMAT_DEFAULT);
 
-            if (deviceType == AUDIO_DEVICE_OUT_AUX_DIGITAL) {
-                mEngine->setDpConnAndAllowedForVoice(false);
-            }
             } break;
 
         default:
@@ -429,7 +426,6 @@ void AudioPolicyManagerCustom::chkDpConnAndAllowedForVoice()
     if (result.get(String8("dp_for_voice"), value) == NO_ERROR) {
         connAndAllowed = value.contains("true");
     }
-    mEngine->setDpConnAndAllowedForVoice(connAndAllowed);
 }
 
 bool AudioPolicyManagerCustom::isInvalidationOfMusicStreamNeeded(const audio_attributes_t &attr)
